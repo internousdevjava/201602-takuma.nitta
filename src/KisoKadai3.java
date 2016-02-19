@@ -18,7 +18,7 @@ class KisoKadai3 {
 
 
 //
-		System.out.println("テキストファイル管理プログラムver1.1を開始します");
+		System.out.println("テキストファイル管理プログラムver1.2を開始します");
         //ループ用関数
         int x = 0;
         while (x==0){
@@ -37,23 +37,25 @@ class KisoKadai3 {
             if (a == 0){
 
 
-            	file3 = nitta(nittaku(br),br);
-            	System.out.println("ファイルの新規作成を行います");
-            	System.out.println("作成するファイル名を入力して下さい");
 
-            	//新規作成プログラムが入る
-            	fw1 = new FileWriter(file3);
-            	fw1.write(br.readLine());
-            	fw1.close();
+            	System.out.println("ファイルの新規作成を行います");
+            	file3 = nitta(nittaku(br),br);
+            	//nittakuではなくnittaに繋がってる？
+//            	System.out.println("作成するファイル名を入力して下さい");
+//
+//            	//新規作成プログラムが入る
+//            	fw1 = new FileWriter(file3);
+//            	fw1.write(br.readLine());
+//            	fw1.close();
             	//filewriterはcloseしないと終わらないとのこと
- 			    System.out.println("ファイルを作りました");
+// 			    System.out.println("ファイルを作りました");
  			    totta();
 
 
             } else if(a == 1){
-            	file3 = takuma(nittaku(br),br);
+            	file3 = nitta(nittaku(br),br);
             	System.out.println("ファイルの上書きを行います");
-            	System.out.println("読み込むファイルを選択して下さい");
+            	System.out.println("内容を記載して下さい");
 
             	//読み込みプログラムが入る
             	fw1 = new FileWriter(file3);
@@ -65,9 +67,9 @@ class KisoKadai3 {
 
 
             } else if(a == 2){
-            	file3 = takuma(nittaku(br),br);
+            	file3 = nitta(nittaku(br),br);
             	System.out.println("ファイルの追記を行います");
-            	System.out.println("読み込むファイルを選択して下さい");
+            	System.out.println("内容を記載して下さい");
 
             	//読み込みプログラムが入る
             	fw1 = new FileWriter(file3,true);
@@ -79,17 +81,17 @@ class KisoKadai3 {
 
             } else if(a == 3){
             	file3 = takuma(nittaku(br),br);
-            	System.out.println("ファイルの読み込みを行います");
-            	System.out.println("読み込むファイルを選択して下さい");
-
-
-            	//読み込みプログラムが入る
-            	FileReader fr = new FileReader(file3);
-            	int ch;
-            	while((ch = fr.read()) != -1){
-            		System.out.print((char)ch);
-            		//intからchar型に変換。一文字ずつ表示して全部表示しきると-1が戻り値になるためループ終了
-            	}
+//            	System.out.println("ファイルの読み込みを行います");
+//            	System.out.println("読み込むファイルを選択して下さい");
+//
+//
+//            	//読み込みプログラムが入る
+//            	FileReader fr = new FileReader(file3);
+//            	int ch;
+//            	while((ch = fr.read()) != -1){
+//            		System.out.print((char)ch);
+//            		//intからchar型に変換。一文字ずつ表示して全部表示しきると-1が戻り値になるためループ終了
+//            	}
             	System.out.println("");
             	totta();
 
@@ -126,20 +128,26 @@ class KisoKadai3 {
 			File file2;
 
 			while(true){
-            	System.out.println("ファイルの読み込みを行います");
+//            	System.out.println("ファイルの読み込みを行います");
             	System.out.println("読み込むファイルを選択して下さい");
             	str3 = br.readLine();
             	str4 = str2 + "\\" + str3;
             	//バックスラッシュが出ないクポ
             	file2 = new File(str4);
             		if(file2.exists()){
-            			System.out.println("そのファイルは既に存在しています");
+            			System.out.println("ファイルを見つけました。読み込みを行います");
+                    	FileReader fr = new FileReader(file2);
+                    	int ch;
+                    	while((ch = fr.read()) != -1){
+                    		System.out.print((char)ch);
+
+                    	}
+            			break;
             		}else{
             			file2.createNewFile();
             			System.out.println("ファイルを新規作成します");
             			break;
             		}
-
 			}
 			return file2;
 	}
@@ -151,17 +159,17 @@ class KisoKadai3 {
 			File file2;
 
 			while(true){
-            	System.out.println("ファイルの読み込みを行います");
-            	System.out.println("読み込むファイルを選択して下さい");
+            	System.out.println("ファイル名を入力して下さい");
             	str3 = br.readLine();
             	str4 = str2 + "\\" + str3;
             	//バックスラッシュが出ないクポ
             	file2 = new File(str4);
             		if(file2.exists()){
             			System.out.println("そのファイルは既に存在しています");
+
             		}else{
             			file2.createNewFile();
-            			System.out.println("ファイルを新規作成します");
+            			System.out.println("ファイルを作成しました");
             			break;
             		}
 
@@ -173,10 +181,11 @@ class KisoKadai3 {
 				String str2 = null;
 				File file1;
 
-				System.out.println("フォルダ名を入力して下さい");
+
 
 				int q = 0;
 				while(q < 1){
+					System.out.println("参照するフォルダ名を入力して下さい");
 					str2 = br.readLine();
 					file1 = new File(str2);
 					if(!file1.exists()){
@@ -193,8 +202,8 @@ class KisoKadai3 {
 	            			q++;
 	            			break;
 	            		}else if(str1 .equals(b)){
-	            				 System.out.println("終了します。お疲れ様でした");
-	            			     System.exit(0);
+	            			System.out.println("フォルダ参照に戻ります");
+	            			break;
 	            		}else{
 	            			System.out.println("申し訳ありません、aかbで入力して下さい");
 	            		}
@@ -233,3 +242,4 @@ class KisoKadai3 {
         //}static void
 }
 //}main class
+
