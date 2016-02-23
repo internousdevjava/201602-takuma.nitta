@@ -53,7 +53,7 @@ class KisoKadai3 {
 
 
             } else if(a == 1){
-            	file3 = nitta(nittaku(br),br);
+            	file3 = nit(nittaku(br),br);
             	System.out.println("ファイルの上書きを行います");
             	System.out.println("内容を記載して下さい");
 
@@ -67,7 +67,7 @@ class KisoKadai3 {
 
 
             } else if(a == 2){
-            	file3 = nitta(nittaku(br),br);
+            	file3 = nit(nittaku(br),br);
             	System.out.println("ファイルの追記を行います");
             	System.out.println("内容を記載して下さい");
 
@@ -176,6 +176,53 @@ class KisoKadai3 {
 			}
 			return file2;
 	}
+
+	private static File nit(String str, BufferedReader br) throws IOException {
+		//追記＆上書き用
+		String str1;
+		File file1;
+		String str2 =str;
+		String str3;
+		String str4;
+		File file2 = null;
+
+		int q = 0;
+		while(q < 1){
+        	System.out.println("ファイル名を入力して下さい");
+        	str3 = br.readLine();
+        	str4 = str2 + "\\" + str3;
+        	//バックスラッシュが出ないクポ
+        	file2 = new File(str4);
+        		if(file2.exists()){
+        			System.out.println("ファイルを確認しました");
+        			break;
+        		}else{
+
+        			System.out.println("ファイルが存在しません。作成してもよろしいですか？ はい=a いいえ=b");
+
+            		str1 = br.readLine();
+            		String a = "a", b = "b";
+            		if(str1.equals(a)){
+            			file2.createNewFile();
+
+            			System.out.println("作成しました");
+            			q++;
+            			break;
+            		}else if(str1 .equals(b)){
+            			System.out.println("ファイル名の入力に戻ります");
+            			break;
+            		}else{
+            			System.out.println("申し訳ありません、aかbで入力して下さい");
+            		}
+            	}
+
+
+        			break;
+        		}
+
+
+		return file2;
+}
 			private static String nittaku(BufferedReader br) throws IOException {
 				String str1;
 				String str2 = null;
